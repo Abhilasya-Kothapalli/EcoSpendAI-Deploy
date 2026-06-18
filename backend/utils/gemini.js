@@ -443,10 +443,39 @@ What specific area of your environmental ledger (Transit, Dining, Utilities) wou
  * @param {Array} chatHistory - Previous chat messages
  * @param {string} userMessage - User's current message
  */
+const isQueryOnTopic = (userMessage) => {
+  const cleaned = (userMessage || '').toLowerCase();
+  
+  const helloKeywords = ['hi', 'hello', 'hey', 'coach', 'help', 'who are you', 'what is this', 'what can you do', 'how to', 'how do i', 'guide', 'welcome'];
+  if (helloKeywords.some(kw => cleaned.includes(kw))) {
+    return true;
+  }
+
+  const ecoKeywords = [
+    'carbon', 'footprint', 'offset', 'emission', 'co2', 'greenhouse', 'sustainability', 'climate', 'warming', 
+    'environment', 'ecological', 'green', 'eco', 'earth', 'planet', 'fossil', 'renewable', 'clean', 'solar', 
+    'wind', 'electric', 'hybrid', 'recycle', 'recycling', 'waste', 'trash', 'garbage', 'organic', 'vegan', 
+    'vegetable', 'plant', 'meat', 'beef', 'chicken', 'dining', 'food', 'meal', 'eat', 'transit', 'metro', 
+    'bus', 'train', 'cab', 'taxi', 'ride', 'travel', 'commute', 'shopping', 'store', 'market', 'clothes', 
+    'fashion', 'electricity', 'power', 'utility', 'energy', 'billing', 'savings', 'expense', 'finance', 
+    'budget', 'money', 'points', 'leaderboard', 'challenge', 'certificate', 'streak', 'clerk', 'login',
+    'auth', 'photo', 'avatar', 'forum', 'ledger', 'bill', 'receipt', 'transaction', 'spent', 'spend', 'buy',
+    'bought', 'purchase', 'samosa', 'popcorn', 'coke', 'abhilasya', 'aarav', 'priya', 'kabir', 'diya',
+    'tree', 'forest', 'coal', 'grid', 'gas', 'fuel', 'petrol', 'diesel'
+  ];
+  
+  return ecoKeywords.some(kw => cleaned.includes(kw));
+};
+
 const getChatRecommendation = async (expenseHistory, chatHistory, userMessage) => {
   // 1. Guardrail Safety Check
   if (isContentMaliciousOrHatred(userMessage)) {
     return `Safety Policy Alert: Your message contains language or concepts that violate our safety policies (malicious, hateful, or harmful content). To maintain a constructive environmental learning space, please ask questions related to carbon footprints, environmental advice, or general sustainability stewardship.`;
+  }
+
+  // 2. Strict Domain Guardrail Check (Local filter)
+  if (!isQueryOnTopic(userMessage)) {
+    return `Please ask questions related to carbon footprints, environmental advice, or general sustainability stewardship.`;
   }
 
   const contextData = JSON.stringify(expenseHistory.slice(-15)); // last 15 expenses for context size control
