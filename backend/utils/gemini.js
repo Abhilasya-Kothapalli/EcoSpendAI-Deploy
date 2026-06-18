@@ -48,7 +48,7 @@ const parseReceiptImage = async (imageBuffer, mimeType, filename = '') => {
 
   try {
     const model = genAI.getGenerativeModel({
-      model: 'gemini-1.5-flash',
+      model: 'gemini-2.5-flash',
       systemInstruction: systemInstruction,
       generationConfig: {
         responseMimeType: 'application/json'
@@ -110,7 +110,7 @@ const parseQuickLogText = async (text) => {
 
   try {
     const model = genAI.getGenerativeModel({
-      model: 'gemini-1.5-flash',
+      model: 'gemini-2.5-flash',
       systemInstruction: systemInstruction,
       generationConfig: {
         responseMimeType: 'application/json'
@@ -190,7 +190,7 @@ const parseManualBill = async (merchant, category, amount, date, itemsString) =>
 
   try {
     const model = genAI.getGenerativeModel({
-      model: 'gemini-1.5-flash',
+      model: 'gemini-2.5-flash',
       systemInstruction: systemInstruction,
       generationConfig: {
         responseMimeType: 'application/json'
@@ -239,7 +239,7 @@ const generateSustainabilityExplanation = async (expenseDoc) => {
 
   try {
     const model = genAI.getGenerativeModel({
-      model: 'gemini-1.5-flash',
+      model: 'gemini-2.5-flash',
       systemInstruction: systemInstruction
     });
 
@@ -475,7 +475,7 @@ const getChatRecommendation = async (expenseHistory, chatHistory, userMessage) =
 
   try {
     const model = genAI.getGenerativeModel({
-      model: 'gemini-1.5-flash',
+      model: 'gemini-2.5-flash',
       systemInstruction: systemInstruction
     });
 
