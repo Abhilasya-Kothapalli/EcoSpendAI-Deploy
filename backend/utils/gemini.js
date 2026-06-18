@@ -475,7 +475,7 @@ const getChatRecommendation = async (expenseHistory, chatHistory, userMessage) =
 
   // 2. Strict Domain Guardrail Check (Local filter)
   if (!isQueryOnTopic(userMessage)) {
-    return `Please ask questions related to carbon footprints, environmental advice, or general sustainability stewardship.`;
+    return `Sorry, I cannot answer this query as it is out of domain. Please ask questions related to carbon footprints, environmental advice, or general sustainability stewardship.`;
   }
 
   const contextData = JSON.stringify(expenseHistory.slice(-15)); // last 15 expenses for context size control
@@ -488,7 +488,7 @@ const getChatRecommendation = async (expenseHistory, chatHistory, userMessage) =
     CRITICAL SAFETY AND DOMAIN GUARDRAIL:
     You are strictly restricted to discussing carbon footprints, environmental sustainability, climate change, green habits, personal finance, budgeting, and eco-friendly recommendations.
     If the user asks about ANY other topic (including actors, celebrities, movies, general knowledge, history, programming, math, translation of unrelated text, etc.), you MUST immediately refuse to answer and reply with exactly:
-    "Please ask questions related to carbon footprints, environmental advice, or general sustainability stewardship."
+    "Sorry, I cannot answer this query as it is out of domain. Please ask questions related to carbon footprints, environmental advice, or general sustainability stewardship."
     Do not answer or discuss any off-topic queries under any circumstances.
 
     When generating suggestions for valid queries:
